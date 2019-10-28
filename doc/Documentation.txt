@@ -18,6 +18,16 @@ Technologies Used:-
 Directory Details:-
 	
 
+Users Input:-
+1. Full Name
+2. Fathers' Name
+3. Roll No.
+4. Branch
+5. Email
+6. Year of Admission
+7. Provisional Type
+
+
 Database Information:-
 1. Name : provisional_db
 2. No. of Tables : 1

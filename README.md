@@ -5,6 +5,8 @@ This software assist the examination controller &amp; record keeper to generate 
 Module-1 Admin Dashboard
 The following features to be included as admin roles:
 
+ Changing Portal Status (Active/Down)
+
  Add/Delete/Modify the Compiler users
 
  Generate & Download Reference Table
@@ -17,6 +19,8 @@ The following features to be included as admin roles:
 
 Module-2 Compiler User Dashboard
  The following features to be included as compiler user roles:
+
+ Changing Portal Status (Active/Down)
 
  Add/Modify the instructions
  
