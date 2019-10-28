@@ -1,0 +1,41 @@
+Default Details:
+1. Controller Admin
+	a> id: 
+	b> pass:
+2. Compiler Admin
+	a> id: 
+	b> pass:
+
+
+Technologies Used:-
+1. Text Editor : Sublime Text
+2. Browser : Chrome
+3. Software: Xampp (phpmyadmin ver:4.8.2)
+4. Languages: HTML,CSS,Bootstrap(4.3),Php(7.2.7)
+5. Web Server: Apache/2.4.33 (Win32) OpenSSL/1.1.0h PHP/7.2.7
+6. db Server: a>type: MariaDB b>version: 10.1.34 c> charset:UTF-8
+
+Directory Details:-
+
+
+Database Information:-
+1. Name : provisional_db
+2. No. of Tables :
+3. List of Tables with description:
+ a>
+ b>
+ c>
+ d>
+ e>
+ f>
+ g>
+ h>
+ i>
+ j>
+ k>
+ l>
+ m>
+ n>
+ o>
+ p>
+4.
