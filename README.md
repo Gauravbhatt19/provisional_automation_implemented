@@ -19,17 +19,27 @@ Module-2 Compiler User Dashboard
  The following features to be included as compiler user roles:
 
  Add/Modify the instructions
+ 
  See the requested provisionals
+ 
  Generate the provisionals
+ 
  See the generated provisionals
+ 
  Generate/download the reference table
+ 
  Change the compiler users password
 
  Module-3 Requesting for Provisionals
  The following phases are to be included as a new provisional request.
 
  See the instructions
+ 
  Fill the details
+ 
  If regular then autofill the subjects
+ 
  If back then suggest the subjects
+ 
  Check the status using reference id
+ 
