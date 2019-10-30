@@ -24,6 +24,9 @@ if(isset($_POST['full_name']))
 		$_SESSION['branch']=mysqli_escape_string($conn,$_POST['branch']);
 		$_SESSION['year']=mysqli_escape_string($conn,$_POST['year']);
 		$_SESSION['p_type']=mysqli_escape_string($conn,$_POST['p_type']);
+		if($_SESSION['p_type']=='REG'){
+			$_SESSION['sem']=mysqli_escape_string($conn,$_POST['sem']);
+		}
 		header("location: ./_fill1.php");
 	}
 }
@@ -45,6 +48,16 @@ function fetch_instruction($conn){
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<script type="text/javascript">
+		function creat(th){
+			if(th.value=='REG'){
+				document.getElementById('sem').style.display='block';
+			}
+			else{
+				document.getElementById('sem').style.display='none';
+			}
+		}
+	</script>
 </head>
 <body>
 	<div>
@@ -98,12 +111,23 @@ function fetch_instruction($conn){
 			<option value="18">After 2017</option>
 	</select>
 		<br>
-	<select name="p_type" required>
+	<select name="p_type" required onchange="creat(this)">
 			<option disabled selected>Provisional Type</option>
 			<option value="REG">Regular</option>
 			<option value="BACK">Back Paper</option>
 	</select>
 	<br>
+	<select name="sem" id='sem' style='display: none;'>
+			<option disabled selected>Provisional Semester</option>
+			<option value="1">First Semester</option>
+			<option value="2">Second Semester</option>
+			<option value="3">Third Semester</option>
+			<option value="4">Forth Semester</option>
+			<option value="5">Fifth Semester</option>
+			<option value="6">Sixth Semester</option>
+			<option value="7">Seventh Semester</option>
+			<option value="8">Eighth emester</option>
+	</select>
 	<input type="submit" value="Initiate for Provisional">
 	</form>
 </div>

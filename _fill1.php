@@ -10,16 +10,65 @@
 		$branch=$_SESSION['branch'];
 		$year=$_SESSION['year'];
 		$p_type=$_SESSION['p_type'];
+		if($p_type=='REG'){
+			$sem=$_SESSION['sem'];
+		}
 	}
 	else 
 		{	
 			header("location: ./index.php");
 		}
 ?>
+<?php
+function fetch_subjects($conn,$branch,$year,$sem){
+	$qry1="SELECT * FROM subjects WHERE branch='$branch' and batch='$year' and sem='$sem' ORDER BY id";
+	$results=mysqli_query($conn,$qry1);
+	$i=1;
+	while($resultset=mysqli_fetch_assoc($results)){
+		echo "<tr id='T".$i."''>";
+		echo "<td id='S".$i."'>".$i."</td>";
+		echo "<td>".$resultset['subcode']." ".$resultset['name']."</td>";
+		echo "<td>".$resultset['credit']."</td>";
+		echo "<td><a href='javascript:void(0)' onclick='del(this.id)' id='".$i."'>Delete</a></td>";
+		echo "</tr>";
+		$i++;
+	}
+}
+?>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title></title>
+	<script type='text/javascript'>
+		function del(i) {
+			tid='T'+i;
+    var element = document.getElementById(tid);
+    element.parentNode.removeChild(element);
+    var I=i;
+    I++;
+    var sid="S"+I;
+    while(t=document.getElementById(sid)){
+    	tid="T"+I;
+    	t.innerHTML=(I-1);
+    	t.id="S"+(I-1);
+    	document.getElementById(I).id=(I-1);
+    	document.getElementById(tid).id="T"+(I-1);
+    	I++;
+    	sid="S"+I;
+		}
+    }
+		function addSub() {
+    parentId='tb1';
+    var p = document.getElementById(parentId);
+    i=document.getElementById('tb1').lastElementChild.lastElementChild.childNodes[0].id;
+    i++;
+    elementId="T"+i;
+    var newElement = document.createElement('tr');
+    newElement.setAttribute('id', elementId);
+    newElement.innerHTML ="<td id='S"+i+"'>"+i+"</td>"+"<td>xxxxxx</td><td>xxxxxx</td><td><a href='javascript:void(0)' onclick='del(this.id)' id='"+i+"'>Delete</a></td>";
+    p.appendChild(newElement);
+}
+	</script>
 </head>
 <body>
 	<div>Name: <?php echo $full_name;?></div>
@@ -33,7 +82,11 @@
 				<td>S.No.</td>
 				<td>Subject</td>
 				<td>Maximum Marks</td>
-				<?php if($p_type=='BACK')
+				<td>Action</td>
+				
+
+
+<?php if($p_type=='BACK')
 				{
 					echo '<td>Month & Year</td><td>Exam</td>';
 				}
@@ -43,9 +96,31 @@
 
 
 			</thead>
-		</table>
-	</div>
 
+			<tbody id='tb1'>
+			<?php
+					if($p_type=='REG'){
+						fetch_subjects($conn,$branch,$year,$sem);
+
+			}
+			?>
+			
+		</tbody>
+				
+		</table>
+		<?php
+					if($p_type=='REG'){
+						echo "<a href='javascript:void(0)' onclick='addSub()'>Add Subject</a>";			
+			}
+			elseif($p_type=='BACK')
+				{
+					echo "<a href='javascript:void(0)' onclick='addSub1()'>Add Subject</a>";
+				}
+				?>
+
+
+		</div>
+		<a href="#" >Apply for Provisional</a>
 </body>
 </html>
 <?php
@@ -54,9 +129,7 @@
 
 
 
-		// if($p_type=='REG'){
-		// 	header("location: ./_fill2.php");
-		// }
+	
 		// elseif(){
 			
 		// }
