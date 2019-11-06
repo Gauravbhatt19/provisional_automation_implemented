@@ -26,9 +26,9 @@ Module-2 Compiler User Dashboard
  
  See the requested provisionals
  
- Generate the provisionals
+ Generate/Reject the provisionals
  
- See the generated provisionals
+ See the generated/rejected provisionals
  
  Generate/download the reference table
  
