@@ -97,7 +97,7 @@ function fetch_instruction($conn){
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item">
-        <a class="nav-link" href="#">Check Status</a>
+        <a class="nav-link" href="./status.php">Check Status</a>
       </li>
       </ul>
   </div>
@@ -167,8 +167,8 @@ Instructions
 	</select>
 		<label for="p_type" class="mb-0 pt-3">Provisional Type</label>
 	<select name="p_type" class="form-control" id='p_type' required onchange="creat(this)">
-			<option value="REG">Regular</option>
 			<option value="BACK">Back Paper</option>
+			<option value="REG">Regular</option>
 	</select>
 	<div id='sem' style='display: none;'>
 	<label for="sem1" class="mb-0 pt-3">Provisional Semester</label>	

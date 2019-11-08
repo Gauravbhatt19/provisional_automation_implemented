@@ -1,8 +1,7 @@
 <?php
 	include './php_set/conn.php';
 	session_start();
-	error_reporting(0);
-	if ( (isset($_SESSION['full_name'])) and (isset($_SESSION['fathers_name'])) and (isset($_SESSION['roll_no'])) and (isset($_SESSION['email_id'])) and (isset($_SESSION['branch'])) and (isset($_SESSION['year'])) and (isset($_SESSION['p_type'])))
+	if ( (isset($_SESSION['full_name'])) and (isset($_SESSION['fathers_name'])) and (isset($_SESSION['roll_no'])) and (isset($_SESSION['email_id'])) and (isset($_SESSION['branch'])) and (isset($_SESSION['year'])) and (isset($_SESSION['p_type'])) and (isset($_POST['1'])))
 	{
 		$full_name=$_SESSION['full_name'];
 		$fathers_name=$_SESSION['fathers_name'];
@@ -24,51 +23,38 @@
 <?php
 function fetch_subjects($conn,$branch,$year,$sem){
 $i='1';
-		$_SESSION[$i]=$_POST[$i];
-		while(isset($_SESSION[$i])){
-			$subcode=$_SESSION[$i];
+$subcode=$_POST[$i];
 	$qry1="SELECT * FROM subjects WHERE subcode='$subcode'";
 	$results=mysqli_query($conn,$qry1);
 	$resultset=mysqli_fetch_assoc($results);
-		echo "<tr id='T".$i."'>";
+ while(isset($resultset['subcode']))
+ 	{echo "<tr id='T".$i."'>";
 		echo "<td id='S".$i."'>".$i."</td>";
-		echo "<input name='".$i."' value='".$resultset['subcode']."' type='hidden'>";
-		echo "<td>".$resultset['subcode']." ".$resultset['name']."</td>";
-		echo "<td>".$resultset['credit1']."</td>";
-		echo "<td>".$resultset['credit2']."</td>";
-		echo "<td>".($resultset['credit1']+$resultset['credit2'])."</td>";
+		echo "<td><input name='".$i."' value='".$resultset['subcode']." ".$resultset['name']."' type='text' class='form-control' required></td>";
+		echo "<td><input name='credit1".$i."' id='credit1".$i."' value='".$resultset['credit1']."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td><input name='credit2".$i."' id='credit2".$i."' value='".$resultset['credit2']."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td id='total".$i."'>".($resultset['credit1']+$resultset['credit2'])."</td>";
 		echo "</tr>";
-			$i++;
-			if(isset($_POST[$i])){
-			$_SESSION[$i]=$_POST[$i];	
-			}
-		}
-		$id="subcode".$i;
-$_SESSION[$i]=$_POST[$id];
-		while(isset($_SESSION[$i])){
-			$subcode=$_SESSION[$i];
+		$i++;
+		$subcode=$_POST[$i];
+	$qry1="SELECT * FROM subjects WHERE subcode='$subcode'";
+	$results=mysqli_query($conn,$qry1);
+	$resultset=mysqli_fetch_assoc($results);
+}
+while(isset($_POST[$i])){
+			$subcode=$_POST[$i];
 			$c1id='credit1'.$i;
 			$c2id='credit2'.$i;
-			$_SESSION[$c1id]=$_POST[$c1id];
-			$_SESSION[$c2id]=$_POST[$c2id];
 			$credit1=$_POST[$c1id];
 			$credit2=$_POST[$c2id];
-			echo "<tr id='T".$i."'>";
+		echo "<tr id='T".$i."'>";
 		echo "<td id='S".$i."'>".$i."</td>";
-		echo "<td>".$subcode."</td>";
-			echo "<input name='".$i."' value='".$subcode."' type='hidden'>";
-			echo "<input name='credit1".$i."' value='".$credit1."' type='hidden'>";
-			echo "<input name='credit2".$i."' value='".$credit2."' type='hidden'>";
-	echo "<td>".$credit1."</td>";
-		echo "<td>".$credit2."</td>";
-		echo "<td>".($credit1+$credit2)."</td>";
+		echo "<td><input name='".$i."' value='".$subcode."' type='text' class='form-control' required></td>";
+		echo "<td><input name='credit1".$i."' id='credit1".$i."' value='".$credit1."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td><input name='credit2".$i."' id='credit2".$i."' value='".$credit2."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td id='total".$i."'>".($credit1+$credit2)."</td>";
 		echo "</tr>";
 			$i++;
-			$id='subcode'.$i;
-			if(isset($_POST[$id])){
-			$_SESSION[$i]=$_POST[$id];	
-			}
-
 		}
 
 }
@@ -103,7 +89,20 @@ $_SESSION[$i]=$_POST[$id];
     	     	 .cust-de1 td {
     	 	border:1px solid #000;
     	 }
+    	 .cust-dist{
+    	 	margin-right:0.75%; 
+    	 }
     </style>
+    <script type="text/javascript">
+    	function modf(id){
+    		var id1='credit1'+id;
+    		var id2='credit2'+id;
+    		elem1=document.getElementById(id1).value;
+    		elem2=document.getElementById(id2).value;
+    		var id3='total'+id;
+    		document.getElementById(id3).innerHTML=parseInt(elem1)+parseInt(elem2);
+    	}
+    </script>
 </head>
 <body>
 			<?php
@@ -113,26 +112,48 @@ $_SESSION[$i]=$_POST[$id];
 	?>
   <div class="container-fluid m-3 text-center" style="background-color:white; width:96%;border-radius:5px;
 	box-shadow: 0px 0px 5px  #000;">
-	<form action="./edit.php" method="POST" name='f1'>
-	<h1  style="color:rgba(15,31,145,1);font-size:3vw;">Please Check all the details before Submitting your application.</h1>
+	<form action="./insert.php" method="POST">
+	<h1  style="color:rgba(15,31,145,1);font-size:3vw;">You can edit the incorrect information by clicking over it.</h1>
 	
 			<div  class="row text-white font-weight-bolder m-4">
 			<div class="col-md-6 row mr-1">
-			<span class="col-sm-6 cust-de">Name: </span><span class="col-sm-6 cust-de1"><?php echo $full_name;?></span></div>
+			<span class="col-sm-6 cust-de">Name: </span><span class="col-sm-6 cust-de1">
+				<input type="text" class="form-control" value='<?php echo $full_name;?>' name='full_name' required></span></div>
 			<div class="col-md-6 row">
-	<span class="col-sm-6 cust-de">Father's Name: </span><span class="col-sm-6 cust-de1"><?php echo $fathers_name;?></span>
+	<span class="col-sm-6 cust-de">Father's Name: </span><span class="col-sm-6 cust-de1">
+				<input type="text" class="form-control" value='<?php echo $fathers_name;?>' name='fathers_name' required></span>
 	</div>
 </div>
 
 	<div class="row  text-white font-weight-bolder m-4">
-			<div class="col-md-3 row mr-1">
-	<span class="col-sm-6 cust-de">Roll No: </span><span class="col-sm-6 cust-de1"> <?php echo $roll_no;?></span></div>
+		<div class="col-lg-4 row  cust-dist">
+	<span class="col-sm-6 cust-de">Roll No: </span><span class="col-sm-6 cust-de1"> <input type="number" class="form-control" value='<?php echo $roll_no;?>' name='roll_no' required></span></div>
 
-			<div class="col-md-3 row mr-1">
-	<span class="col-sm-6 cust-de">Branch: </span><span class="col-sm-6 cust-de1"><?php echo $branch;?></span>
+			<div class="col-lg-3 row  cust-dist">
+	<span class="col-sm-6 cust-de">Branch: </span><span class="col-sm-6 cust-de1">
+		<select name="branch" class="form-control" required>
+			<?php
+			echo "<option value='".$branch."'>".$branch."</option>";
+			if($branch!='CSE'){
+			echo "<option value='CSE'>CSE</option>";	
+			}
+			if($branch!='CE'){
+			echo "<option value='CE'>CE</option>";	
+			}
+			if($branch!='EE'){
+			echo "<option value='EE'>EE</option>";	
+			}
+			if($branch!='ECE'){
+			echo "<option value='ECE'>ECE</option>";	
+			}
+			if($branch!='ME'){
+			echo "<option value='ME'>ME</option>";	
+			}
+			?>
+			</select></span>
 	</div>
-			<div class="col-md-6 row ">
-	<span class="col-sm-6 cust-de">Email: </span><span class="col-sm-6 cust-de1"><?php echo $email_id;?></span>
+				<div class="col-lg-5 row">
+	<span class="col-sm-6 cust-de">Email: </span><span class="col-sm-6 cust-de1"><input type="email_id" class="form-control" value='<?php echo $email_id;?>' name='email_id' required></span>
 	</div>
 </div>
 <table class="table table-bordered text-white text-center">
@@ -168,11 +189,8 @@ $_SESSION[$i]=$_POST[$id];
 			?>
   </tbody>
 </table>
-
-<input type='submit' class="btn btn-primary"  value='Submit this Application' onclick="f1.action='insert.php';  return true;">
-<input type='submit' class="btn btn-primary"  value='Edit this Application' onclick="return true;">
-
-<a href="javascript:void(0)" class="btn btn-primary" onclick='exit();'>Discard this Application</a>
+		<input type="submit" class="btn btn-primary" value="Submit this Application">
+	<a href="javascript:void(0)" class="btn btn-primary" onclick='exit();'>Discard this Application</a>
 	<br>
 	&nbsp;
 	</form>
