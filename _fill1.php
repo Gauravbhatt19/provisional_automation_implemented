@@ -8,10 +8,14 @@
 		$roll_no=$_SESSION['roll_no'];
 		$email_id=$_SESSION['email_id'];
 		$branch=$_SESSION['branch'];
-		$year=$_SESSION['year'];
 		$p_type=$_SESSION['p_type'];
 		if($p_type=='REG'){
 			$sem=$_SESSION['sem'];
+		    $year=$_SESSION['year'];
+		}
+		else{	
+		$sem='0';
+		$year='0';
 		}
 	}
 	else 
@@ -87,7 +91,7 @@ function fetch_subjects($conn,$branch,$year,$sem){
     	sid="S"+I;
 		}
     }
-		function addSub() {
+		function addSub(t) {
     parentId='tb1';
     var p = document.getElementById(parentId);
     i=document.getElementById('tb1').lastElementChild.lastElementChild.lastElementChild.childNodes[0].id;
@@ -96,8 +100,13 @@ function fetch_subjects($conn,$branch,$year,$sem){
     var newElement = document.createElement('tr');
     newElement.setAttribute('id', elementId);
     newElement.setAttribute('class', 'cust-de1');
-   newElement.innerHTML ="<td id='S"+i+"'>"+i+"</td>"+"<td><input type='text' placeholder='e.g. TCS401 Discrete Mathematics' class='form-control' name='subcode"+i+"' required/></td><td>	<select class='form-control'  name='credit1"+i+"'><option value='100'>100</option><option value='50'>50</option><option value='25'>25</option></select></td><td>	<select class='form-control' name='credit2"+i+"'><option value='50'>50</option><option value='25'>25</option></select></td><td><a href='javascript:void(0)' onclick='del(this.id)' id='"+i+"'>Delete</a></td>";
-    p.lastElementChild.appendChild(newElement);
+   	if(t=='1'){
+   		newElement.innerHTML ="<td id='S"+i+"'>"+i+"</td>"+"<td><input type='text' placeholder='e.g. TCS401 Discrete Mathematics' class='form-control' name='subcode"+i+"' required/></td><td>	<select class='form-control'  name='credit1"+i+"'><option value='100'>100</option><option value='50'>50</option><option value='25'>25</option></select></td><td>	<select class='form-control' name='credit2"+i+"'><option value='50'>50</option><option value='25'>25</option></select></td><td><a href='javascript:void(0)' onclick='del(this.id)' id='"+i+"'>Delete</a></td>";
+    }
+    else{
+	newElement.innerHTML ="<td id='S"+i+"'>"+i+"</td>"+"<td><input type='text' placeholder='e.g. TCS401 Discrete Mathematics' class='form-control' name='subcode"+i+"' required/></td><td>	<select class='form-control'  name='credit1"+i+"'><option value='100'>100</option><option value='50'>50</option><option value='25'>25</option></select></td><td>	<select class='form-control' name='credit2"+i+"'><option value='50'>50</option><option value='25'>25</option></select></td><td><input type='text' placeholder='e.g. Dec 2018' class='form-control' name='mnth_yr"+i+"' required/></td><td><select class='form-control' name='btype"+i+"'><option value='REGULAR'>Regular Back</option><option value='INTERNAL'>Internal Back</option> <option value='SPECIAL'>Special Back</option> </select></td><td><a href='javascript:void(0)' onclick='del(this.id)' id='"+i+"'>Delete</a></td>";
+   
+    }p.lastElementChild.appendChild(newElement);
 }
 function rst() {
 	   var txt;
@@ -153,30 +162,44 @@ location.reload();
 	vertical-align:middle;">Exam</th>';
 				}
 				?>
-      <th scope="col">Action</th>
+       <?php if($p_type=='REG')
+				{
+					echo '<th scope="col">Action</th>';
+				}
+				else
+				{
+					echo '<th scope="col"  rowspan="2" style="vertical-align:middle;">Action</th>';
+				}
+				?> 
     </tr>    
     <tr class="cust-de">
       <th scope="col">Sem</th>
       <th scope="col">Ses</th>
-      <th scope="col" class="bg-white" style="border:1px solid #000;"><button type="button" onclick="rst()" class="btn btn-warning">Reset Table</button></th>
+             <?php if($p_type=='REG')
+				{
+					echo '<th scope="col" class="bg-white" style="border:1px solid #000;"><button type="button" onclick="rst()" class="btn btn-warning">Reset Table</button></th>';
+				}
+				?> 
       </tr>
   </thead>
   <tbody class="cust-de1">
    			<?php
 					if($p_type=='REG'){
 						fetch_subjects($conn,$branch,$year,$sem);
-
+			}
+			else{
+				echo "<td id='S1'>1</td><td><input type='text' placeholder='e.g. TCS401 Discrete Mathematics' class='form-control' name='subcode1' required/></td><td>	<select class='form-control'  name='credit11'><option value='100'>100</option><option value='50'>50</option><option value='25'>25</option></select></td><td>	<select class='form-control' name='credit21'><option value='50'>50</option><option value='25'>25</option></select></td><td><input type='text' placeholder='e.g. Dec 2018' class='form-control' name='mnth_yr1' required/></td><td><select class='form-control' name='btype1'><option value='REGULAR'>Regular Back</option><option value='INTERNAL'>Internal Back</option> <option value='SPECIAL'>Special Back</option> </select></td><td><a href='javascript:void(0)' onclick='del(this.id)' id='1' style='display:none;'>Delete</a></td>";
 			}
 			?>
   </tbody>
 </table>
   <?php
 					if($p_type=='REG'){
-						echo "<a href='javascript:void(0)' onclick='addSub()' class='btn btn-primary'>Add Subject</a>";			
+						echo "<a href='javascript:void(0)' onclick='addSub(1)' class='btn btn-primary'>Add Subject</a>";			
 			}
 			elseif($p_type=='BACK')
 				{
-					echo "<a href='javascript:void(0)' onclick='addSub1()'  class='btn btn-primary'>Add Subject</a>";
+					echo "<a href='javascript:void(0)' onclick='addSub(0)'  class='btn btn-primary'>Add Subject</a>";
 				}
 				?>
 	<input type="submit" class="btn btn-primary" value="Save & Check">
@@ -190,17 +213,3 @@ include './php_set/footer.php';
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
-<?php
-
-		// echo $full_name."<br>".$fathers_name."<br>".$roll_no."<br>".$email_id."<br>".$branch."<br>".$year."<br>".$p_type;
-
-
-
-	
-		// elseif(){
-			
-		// }
-		// else{
-		// 	header("location: ./index.php");
-		// }
-?>

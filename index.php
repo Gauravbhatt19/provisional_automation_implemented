@@ -160,17 +160,17 @@ Instructions
 			echo $_SESSION['err3'];
 		}
 		?>
-		<label for="year" class="mb-0 pt-3">Year of Admission</label>
-	<select name="year" id='year' class="form-control" required>
-			<option value="17">Before or 2017</option>
-			<option value="18">After 2017</option>
-	</select>
 		<label for="p_type" class="mb-0 pt-3">Provisional Type</label>
 	<select name="p_type" class="form-control" id='p_type' required onchange="creat(this)">
 			<option value="BACK">Back Paper</option>
 			<option value="REG">Regular</option>
 	</select>
-	<div id='sem' style='display: none;'>
+<div id='sem' style='display: none;'>
+	<label for="year" class="mb-0 pt-3">Year of Admission</label>
+	<select name="year" id='year' class="form-control" required>
+			<option value="17">Before or 2017</option>
+			<option value="18">After 2017</option>
+	</select>
 	<label for="sem1" class="mb-0 pt-3">Provisional Semester</label>	
 	<select name="sem" id='sem1' class="form-control" >
 			<option value="1">First Semester</option>

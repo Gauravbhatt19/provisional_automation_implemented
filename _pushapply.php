@@ -9,10 +9,14 @@
 		$roll_no=$_SESSION['roll_no'];
 		$email_id=$_SESSION['email_id'];
 		$branch=$_SESSION['branch'];
-		$year=$_SESSION['year'];
 		$p_type=$_SESSION['p_type'];
-		if($p_type=='REG'){
+				if($p_type=='REG'){
 			$sem=$_SESSION['sem'];
+		    $year=$_SESSION['year'];
+		}
+		else{	
+		$sem='0';
+		$year='0';
 		}
 	}
 	else 
@@ -69,6 +73,42 @@ $_SESSION[$i]=$_POST[$id];
 			$_SESSION[$i]=$_POST[$id];	
 			}
 
+		}
+
+}
+function fetch_subjects1(){
+$i='1';
+$sid="subcode".$i;
+$cid1="credit1".$i;
+$cid2="credit2".$i;
+$mnth_yrid="mnth_yr".$i;
+$btypeid="btype".$i;
+while(isset($_POST[$sid])){
+			$subcode=$_POST[$sid];
+			$credit1=$_POST[$cid1];
+			$credit2=$_POST[$cid2];
+			$mnth_yr=$_POST[$mnth_yrid];
+			$btype=$_POST[$btypeid];
+			echo "<tr id='T".$i."'>";
+		echo "<td id='S".$i."'>".$i."</td>";
+		echo "<td>".$subcode."</td>";
+			echo "<input name='subcode".$i."' value='".$subcode."' type='hidden'>";
+			echo "<input name='credit1".$i."' value='".$credit1."' type='hidden'>";
+			echo "<input name='credit2".$i."' value='".$credit2."' type='hidden'>";
+			echo "<input name='mnth_yr".$i."' value='".$mnth_yr."' type='hidden'>";
+			echo "<input name='btype".$i."' value='".$btype."' type='hidden'>";
+			echo "<td>".$credit1."</td>";
+		echo "<td>".$credit2."</td>";
+		echo "<td>".($credit1+$credit2)."</td>";
+		echo "<td>".$mnth_yr."</td>";
+		echo "<td>".$btype."</td>";
+		echo "</tr>";
+			$i++;
+			$sid="subcode".$i;
+$cid1="credit1".$i;
+$cid2="credit2".$i;
+$mnth_yrid="mnth_yr".$i;
+$btypeid="btype".$i;
 		}
 
 }
@@ -143,6 +183,8 @@ $_SESSION[$i]=$_POST[$id];
       <th scope="col" rowspan="2"  style="
 	vertical-align:middle;">Subject</th>
       <th scope="col" colspan="2"  >Maximum Marks</th>
+            <th scope="col" rowspan="2" style="
+	vertical-align:middle;" >Total</th>
       <?php if($p_type=='BACK')
 				{
 					echo '
@@ -152,8 +194,6 @@ $_SESSION[$i]=$_POST[$id];
 	vertical-align:middle;">Exam</th>';
 				}
 				?>
-      <th scope="col" rowspan="2" style="
-	vertical-align:middle;" >Total</th>
     </tr>    
     <tr class="cust-de">
       <th scope="col">Sem</th>
@@ -164,6 +204,9 @@ $_SESSION[$i]=$_POST[$id];
    			<?php
 					if($p_type=='REG'){
 						fetch_subjects($conn,$branch,$year,$sem);
+			}
+			else{
+				fetch_subjects1();
 			}
 			?>
   </tbody>

@@ -1,26 +1,27 @@
 <?php
 	include './php_set/conn.php';
 	session_start();
-	if ( (isset($_SESSION['full_name'])) and (isset($_SESSION['fathers_name'])) and (isset($_SESSION['roll_no'])) and (isset($_SESSION['email_id'])) and (isset($_SESSION['branch'])) and (isset($_SESSION['year'])) and (isset($_SESSION['p_type'])) and (isset($_POST['1'])))
+	if ( (isset($_SESSION['full_name'])) and (isset($_SESSION['fathers_name'])) and (isset($_SESSION['roll_no'])) and (isset($_SESSION['email_id'])) and (isset($_SESSION['branch'])) and (isset($_SESSION['year'])) and (isset($_SESSION['p_type'])) and ((isset($_POST['subcode1'])) or (isset($_POST['1']))))
 	{
 		$full_name=$_SESSION['full_name'];
 		$fathers_name=$_SESSION['fathers_name'];
 		$roll_no=$_SESSION['roll_no'];
 		$email_id=$_SESSION['email_id'];
 		$branch=$_SESSION['branch'];
-		$year=$_SESSION['year'];
 		$p_type=$_SESSION['p_type'];
-		if($p_type=='REG'){
+				if($p_type=='REG'){
 			$sem=$_SESSION['sem'];
+		    $year=$_SESSION['year'];
+		}
+		else{	
+		$sem='0';
+		$year='0';
 		}
 	}
 	else 
 		{	
 			header("location: ./index.php");
 		}
-
-?>
-<?php
 function fetch_subjects($conn,$branch,$year,$sem){
 $i='1';
 $subcode=$_POST[$i];
@@ -57,6 +58,49 @@ while(isset($_POST[$i])){
 			$i++;
 		}
 
+}
+function fetch_subjects1(){
+$i='1';
+$sid="subcode".$i;
+$cid1="credit1".$i;
+$cid2="credit2".$i;
+$mnth_yrid="mnth_yr".$i;
+$btypeid="btype".$i;
+while(isset($_POST[$sid])){
+			$subcode=$_POST[$sid];
+			$credit1=$_POST[$cid1];
+			$credit2=$_POST[$cid2];
+			$mnth_yr=$_POST[$mnth_yrid];
+			$btype=$_POST[$btypeid];
+			echo "<tr id='T".$i."'>";
+		echo "<td id='S".$i."'>".$i."</td>";
+		echo "<td><input name='subcode".$i."' value='".$subcode."' type='text' class='form-control' required></td>";
+			echo "<td><input name='credit1".$i."' id='credit1".$i."' value='".$credit1."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td><input name='credit2".$i."' id='credit2".$i."' value='".$credit2."' type='number' class='form-control' onchange='modf(".$i.");' required></td>";
+		echo "<td id='total".$i."'>".($credit1+$credit2)."</td>";
+		echo "<td><input name='mnth_yr".$i."' value='".$mnth_yr."' type='text' class='form-control' required></td>";
+		echo "<td><select name='btype".$i."' class='form-control' required>
+			";
+		echo "<option value='".$btype."'>".$btype."</option>";
+			if($btype!='REGULAR'){
+			echo "<option value='REGULAR'>REGULAR</option>";	
+			}
+			if($branch!='SPECIAL'){
+			echo "<option value='SPECIAL'>SPECIAL</option>";	
+			}
+			if($branch!='INTERNAL'){
+			echo "<option value='INTERNAL'>INTERNAL</option>";	
+			}
+			
+		echo "</select></td>";
+		echo "</tr>";
+			$i++;
+			$sid="subcode".$i;
+$cid1="credit1".$i;
+$cid2="credit2".$i;
+$mnth_yrid="mnth_yr".$i;
+$btypeid="btype".$i;
+		}
 }
 ?>
 <html>
@@ -164,6 +208,8 @@ while(isset($_POST[$i])){
       <th scope="col" rowspan="2"  style="
 	vertical-align:middle;">Subject</th>
       <th scope="col" colspan="2"  >Maximum Marks</th>
+      <th scope="col" rowspan="2" style="
+	vertical-align:middle;" >Total</th>
       <?php if($p_type=='BACK')
 				{
 					echo '
@@ -173,8 +219,6 @@ while(isset($_POST[$i])){
 	vertical-align:middle;">Exam</th>';
 				}
 				?>
-      <th scope="col" rowspan="2" style="
-	vertical-align:middle;" >Total</th>
     </tr>    
     <tr class="cust-de">
       <th scope="col">Sem</th>
@@ -185,6 +229,9 @@ while(isset($_POST[$i])){
    			<?php
 					if($p_type=='REG'){
 						fetch_subjects($conn,$branch,$year,$sem);
+			}
+			else{
+					fetch_subjects1();
 			}
 			?>
   </tbody>
