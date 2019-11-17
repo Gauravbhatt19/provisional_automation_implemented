@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style='margin-top:-8px;'>
-  <a class="navbar-brand" href="./logout.php">Provisional Application Portal</a>
+  <a class="navbar-brand" href="./index.php" >Provisional Application Portal</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

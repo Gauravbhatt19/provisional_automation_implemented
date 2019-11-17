@@ -10,7 +10,7 @@
       <th scope="row"><a href="./genrejp.php">Generated/Rejected provisionals</a></th>
     </tr>
     <tr>
-      <th scope="row"><a href="./reftb.php">Generate Reference table</a></th>
+      <th scope="row"><a href="./reftb.php">Reference table</a></th>
     </tr>
     <tr>
       <th scope="row"><a href="./chngepss.php">Change Password</a></th>

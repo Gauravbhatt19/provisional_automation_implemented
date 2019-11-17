@@ -62,14 +62,16 @@ else
   <div class="container-fluid m-3" style="background-color:white; width:96%;border-radius:5px;
 	box-shadow: 0px 0px 5px  #000;">
 	<h1  style="color:rgba(15,31,145,1);font-size:3vw;" class="text-center">Your Reference No. is <?php echo $ref_no; ?></h1>
-		<div class="alert alert-success" role="alert" id='status'>
-  <h4 class="alert-heading"><?php 
-			if($status='Apply')
-			echo "Application Phase.";
-		elseif($status='Success')
-			echo "Successfully Compiled, Check Your Email Inbox !";
+<?php 
+			if($status=='Apply')
+			echo "		<div class='alert alert-success' role='alert' id='status'>
+  <h4 class='alert-heading'>Application Phase.</h4>";
+		elseif($status=='Success')
+			echo "		<div class='alert alert-success' role='alert' id='status'>
+  <h4 class='alert-heading'>Successfully Compiled, Check Your Email Inbox !</h4>";
 		else
-			echo "Rejected";
+			echo "		<div class='alert alert-warning' role='alert' id='status'>
+  <h4 class='alert-heading'>Rejected</h4>";
 			?></h4>
   <hr>
   <p class="mb-0"><?php 

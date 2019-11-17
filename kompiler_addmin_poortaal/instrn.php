@@ -32,8 +32,18 @@ include './sidebar.php';
 	</div>
 <div class="container-fluid  col-lg-9 py-3">
 	<br>
-
-
+	<br>
+	<form action="./updteinstrn.php" method="POST">
+	<?php
+	$ins='instructions';
+	$qry="SELECT * FROM general WHERE name='".$ins."'";
+	$result=mysqli_query($conn,$qry);
+	$resultset=mysqli_fetch_assoc($result);
+	  echo "<textarea class='form-control' name='instrn' style='background-color:rgba(0,0,0,0.7);color:white;'  rows='5'>".$resultset['val']."</textarea>";
+	?>
+	<div class="text-right m-2">
+	<input type="submit" value='Modify' class="btn btn-primary"></div>
+</form>
 </div>
 </div>	<br>
 	<br>

@@ -31,9 +31,45 @@ include './sidebar.php';
 ?>
 	</div>
 <div class="container-fluid  col-lg-9 py-3">
-	<br>
-
-
+	<div class="card">
+ <div class="card-body"  style="margin-bottom:-30px;">
+    <h5 class="card-title text-center">List of Requested Provisionals</h5>
+   <table class="table table-hover text-center">
+   	<thead>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Sl.No.</th>
+      <th scope="col">Ref.No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Roll No.</th>
+      <th scope="col">Branch</th>
+      <th scope="col">Provisional Type</th>
+      <th scope="col">Action</th>
+    </tr>
+   	</thead>
+  <tbody>
+  	<?php
+  	$i=1;
+  	$qry="SELECT * FROM refer_table WHERE stat='Apply' ORDER BY last_modify DESC";
+  	$result=mysqli_query($conn,$qry);
+  	while( $result_set=mysqli_fetch_assoc($result)){ 
+ 	 $ref_no=$result_set['ref_no']; 
+ 	 $name=$result_set['name']; 
+ 	 $branch=$result_set['branch']; 
+ 	 $rollno=$result_set['roll_no'];   	
+ 	 $qry1="SELECT * FROM buffer WHERE ref_no='{$ref_no}'";
+ 	 $result1=mysqli_query($conn,$qry1);
+  	 $result_set1=mysqli_fetch_assoc($result1);
+  	 $type=$result_set1['type'];
+   	echo "<tr><th>".$i."</th><th>".$ref_no."</th><th class='text-left'>".$name."</th><th>".$rollno."</th><th>".$branch."</th><th>".$type."</th><th><a href='./generate/genp.php?id=".$ref_no."' class='btn btn-primary'>Initiate</a></th>";
+   	echo "</tr>";
+   	$i++;
+   }
+    ?>
+          </tbody>
+</table>   
+</div>
+</div>
 </div>
 </div>	<br>
 	<br>

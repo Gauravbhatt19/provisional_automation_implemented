@@ -1,6 +1,7 @@
 <?php
 	include './php_set/conn.php';
 	session_start();
+	error_reporting(0);
 	if ( (isset($_SESSION['full_name'])) and (isset($_SESSION['fathers_name'])) and (isset($_SESSION['roll_no'])) and (isset($_SESSION['email_id'])) and (isset($_SESSION['branch'])) and (isset($_SESSION['year'])) and (isset($_SESSION['p_type'])) and ((isset($_POST['subcode1'])) or (isset($_POST['1']))))
 	{
 		$full_name=$_SESSION['full_name'];
@@ -83,13 +84,13 @@ while(isset($_POST[$sid])){
 			";
 		echo "<option value='".$btype."'>".$btype."</option>";
 			if($btype!='REGULAR'){
-			echo "<option value='REGULAR'>REGULAR</option>";	
+			echo "<option value='REGULAR'>REGULAR BACK</option>";	
 			}
 			if($branch!='SPECIAL'){
-			echo "<option value='SPECIAL'>SPECIAL</option>";	
+			echo "<option value='SPECIAL'>SPECIAL BACK</option>";	
 			}
 			if($branch!='INTERNAL'){
-			echo "<option value='INTERNAL'>INTERNAL</option>";	
+			echo "<option value='INTERNAL'>INTERNAL BACK</option>";	
 			}
 			
 		echo "</select></td>";

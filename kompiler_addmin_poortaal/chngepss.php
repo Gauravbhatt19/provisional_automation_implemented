@@ -14,7 +14,22 @@ if(!isset($_SESSION['login_id']))
 	<link rel="icon" href="../extra_resources/img/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
+    	<style>
+		.cus_but
+{
+	background-color:rgba(0,162,232,1); 
+	border:0px;
+	color:#fff;
+	font-weight:bolder; 
+	transition:0.5s; 
+	border-radius:2px; 
+}
+.cus_but:hover
+{
+	background-color:rgba(0,62,132,1); 
+	transition:0.5s; 
+}
+	</style></head>
 <body>
 	<?php
 	include "../php_set/header.php";
@@ -31,16 +46,44 @@ include './sidebar.php';
 ?>
 	</div>
 <div class="container-fluid  col-lg-9 py-3">
+	<div class="mt-2">
+		<script type="text/javascript">
+			function chckpass(){
+				var npass=document.getElementById('npass').value;
+				var cnfmpass=document.getElementById('cnfmpass').value;
+				if(npass!=cnfmpass){
+					alert( 'Confirm Password and password entered is not same ...!');
+    				return false;
+				}
+			}
+		</script>
+	<form action="./_chngepass.php" method="POST"  onsubmit="return chckpass()"  class="card px-5 pt-4" style="	border-radius:5px;
+	box-shadow: 0px 0px 5px  #000;">
+	<h2 class="text-center">Change Password</h2>
+		<label for="cpass" class="mb-0 pt-3">Current Password</label>
+		<input type="password" name='cpass' class="form-control" placeholder="Current Password" id="cpass" required>
+		<label for="npass" class="mb-0 pt-3">Password</label>
+		<input type="password" name='npass' id="npass" class="form-control" placeholder="Password" required>
+					<?php
+		if (isset($_SESSION['err1']))
+		{
+			echo $_SESSION['err1'];
+		}
+		?>		<label for="cnfmpass" class="mb-0 pt-3">Confirm Password</label>
+		<input type="password" name='cnfmpass' id="cnfmpass" class="form-control" placeholder="Confirm Password" required>
+					<?php
+		if (isset($_SESSION['err2']))
+		{
+			echo $_SESSION['err2'];
+		}
+		?>
+	<input class='cus_but p-1 my-3' type="submit" value="Login">
 	<br>
-
+	</form>
+</div>
 
 </div>
-</div>	<br>
-	<br>
-	<br>
-
-
-
+</div>
 <?php
 include '../php_set/footer.php';
 ?>
