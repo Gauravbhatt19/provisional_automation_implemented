@@ -144,6 +144,7 @@ file_put_contents($full_path, $output);
     $reject='Success';
     $qry3="UPDATE refer_table SET stat='{$reject}',compile_time='{$dt}' WHERE ref_no='{$id}'";
     $result3=mysqli_query($conn,$qry3);
+        unlink($full_path);
     header("location: ../index.php");
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

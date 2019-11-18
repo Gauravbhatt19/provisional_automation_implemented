@@ -112,7 +112,7 @@ $html.='<tr><td>'.$i.'</td>
     <td>'.($obtsem+$obtses).'</td>
     <td>'.$result.'</td>
     <td>'.$mnth_yr.'</td>
-    <td>'.$exam_type.' Back</td></tr>';
+    <td>'.$exam_type.' BACK</td></tr>';
 $i++;
 }
    $html.="</tbody>
@@ -145,6 +145,7 @@ file_put_contents($full_path, $output);
     $reject='Success';
     $qry3="UPDATE refer_table SET stat='{$reject}',compile_time='{$dt}' WHERE ref_no='{$id}'";
     $result3=mysqli_query($conn,$qry3);
+    unlink($full_path);
     header("location: ../index.php");
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
