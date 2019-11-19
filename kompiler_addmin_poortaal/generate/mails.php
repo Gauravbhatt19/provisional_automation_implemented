@@ -32,7 +32,7 @@ try {
     $mail->Host       = 'smtp.gmail.com'; 
     $mail->SMTPAuth   = true;    
     $mail->Username   = 'provisional.thdcihet@gmail.com';
-    $mail->Password   = 'Provisional@1234';              
+    $mail->Password   = 'Aa1357908642';              
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  
     $mail->Port       = 587;                             
     $mail->setFrom('provisional.thdcihet@gmail.com', 'Provisional Portal');
@@ -46,6 +46,7 @@ $full_path='./temp/'.$filename.'.pdf';
   $mail->addAttachment($full_path);
     $mail->send();
         unlink($full_path);
+        header('location:../index.php');
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }

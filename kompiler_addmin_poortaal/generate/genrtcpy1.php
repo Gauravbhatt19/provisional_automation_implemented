@@ -24,6 +24,8 @@ $id=$_SESSION['ref_id'];
     $resultset1=mysqli_fetch_assoc($results1);
     $rollno=$resultset1['roll_no'];
     $branch=$resultset1['branch'];
+    $obmrk=0;
+    $tmrk=0;
 }
 else {
   header("location: ../index.php");
@@ -148,11 +150,15 @@ echo '<tr><td>'.$i.'</td>
     <td>'.$obtses.'</td>
     <td>'.($obtsem+$obtses).'</td>
     <td>'.$rslt.'</td></tr>';
-$i++;}
+    $i++;   
+    $obmrk+=$obtsem+$obtses;
+    $tmrk+=$mmsem+$mmses;
+}
 ?>
 
   </tbody>
 </table>
+<div style="margin-left:50px; "><b>Total: </b><?php echo $obmrk."/".$tmrk;?></div>
 <div style="">
 <p style="font-weight:bolder; float:left; padding-left:80px; ">Compiled by</p>
 <p style="font-weight:bolder; float:right; padding-right:80px; ">Dy. Controller of Examination, THDC-IHET</p>

@@ -276,7 +276,7 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `refer_table`
 --
 ALTER TABLE `refer_table`
-  MODIFY `ref_no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ref_no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 
 --
 -- AUTO_INCREMENT for table `subjects`

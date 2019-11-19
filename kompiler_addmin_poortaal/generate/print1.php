@@ -26,6 +26,8 @@ $id=$_SESSION['ref_id'];
     $resultset1=mysqli_fetch_assoc($results1);
     $rollno=$resultset1['roll_no'];
     $branch=$resultset1['branch'];
+        $obmrk=0;
+    $tmrk=0;
 $dompdf = new Dompdf();
 $html="<style>@page {
   margin:1cm;
@@ -109,9 +111,13 @@ $html.='<tr><td>'.$i.'</td>
     <td>'.($obtsem+$obtses).'</td>
     <td>'.$rslt.'</td></tr>';
 $i++;
+    $obmrk+=$obtsem+$obtses;
+    $tmrk+=$mmsem+$mmses;
 }
+
    $html.="</tbody>
 </table>
+<div style='margin-left:50px; margin-top:10px;'><b>Total: </b>".$obmrk."/".$tmrk."</div>
 <div style='position:relative; top:40px;'>
 <p style='font-weight:bolder; position:absolute; left:50px;'>Compiled by</p>
 <p style='font-weight:bolder; position:absolute; right:50px; margin-top:0;'>Dy. Controller of Examination, THDC-IHET</p>
