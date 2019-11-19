@@ -168,8 +168,9 @@ Instructions
 <div id='sem' style='display: none;'>
 	<label for="year" class="mb-0 pt-3">Year of Admission</label>
 	<select name="year" id='year' class="form-control" required>
-			<option value="17">Before or 2017</option>
-			<option value="18">After 2017</option>
+			<option value="17">Before 2017</option>
+			<option value="18">2018</option>
+			<option value="19">After 2018</option>
 	</select>
 	<label for="sem1" class="mb-0 pt-3">Provisional Semester</label>	
 	<select name="sem" id='sem1' class="form-control" >

@@ -39,8 +39,8 @@ $results=mysqli_query($conn,$qry);
 		echo "<tr>";
 		echo "<td>".$i."</td>";
 		echo "<td><input type='text' class='form-control' size='40' name='subname_".$i."' value='".$resultset['subjects']."'></td>";
-		echo "<td>".$resultset['max_credit1']."</td>";
-		echo "<td>".$resultset['max_credit2']."</td>";
+		echo "<td id='max1_".$i."'>".$resultset['max_credit1']."</td>";
+		echo "<td id='max2_".$i."'>".$resultset['max_credit2']."</td>";
 		echo "<td>".($resultset['max_credit1']+$resultset['max_credit2'])."</td>";
 		echo "<td><input type='number' id='cr1_".$i."' name='cr1_".$i."' min='0' max='".$resultset['max_credit1']."'   class='form-control' onchange='modf(".$i.")' value=".$resultset['credit1']." required/></td><td><input type='number' id='cr2_".$i."' name='cr2_".$i."' min='0' max='".$resultset['max_credit2']."'   class='form-control' onchange='modf(".$i.")'  value=".$resultset['credit2']." required/></td><td id='total".$i."'>".($resultset['credit1']+$resultset['credit2'])."</td>";
 	if($p_type=='BACK'){
@@ -68,18 +68,34 @@ $results=mysqli_query($conn,$qry);
     		elem1=document.getElementById(id1).value;
     		elem2=document.getElementById(id2).value;
     		var id3='total'+id;
+        var id4='max1_'+id;
+        var id5='max2_'+id;
+        elem3=document.getElementById(id4).innerHTML;
+        elem4=document.getElementById(id5).innerHTML;
+        if(parseInt(elem3)>50){
+          var ext1=0.3*parseInt(elem3);
+        var ttl=0.4*(parseInt(elem3)+parseInt(elem4));
+        }
+        else if(parseInt(elem3)==50){
+        var ext1=0.4*parseInt(elem3);
+        var ttl=0.4*(parseInt(elem3)+parseInt(elem4));          
+        }
+        else{
+        var ext1=0.5*parseInt(elem3);
+        var ttl=0.5*(parseInt(elem3)+parseInt(elem4));          
+        }
     		   if(isNaN(parseInt(elem1)))
     			elem1='0';    		   
     		if(isNaN(parseInt(elem2)))
     			elem2='0';
     		document.getElementById(id3).innerHTML=parseInt(elem1)+parseInt(elem2);
     		var id4='result'+id;
-    		if((parseInt(elem1)>=60) || ((parseInt(elem1)+parseInt(elem2))>=60) && parseInt(elem1)>=30){	
+    		if(((parseInt(elem1)+parseInt(elem2))>=parseInt(ttl)) && parseInt(elem1)>=parseInt(ext1)){	
     		document.getElementById(id4).innerHTML='PASS';
     		}
     		else
     		{
-			document.getElementById(id4).innerHTML='FAIL';
+			document.getElementById(id4).innerHTML='BACK';
     		}
     	}
     </script>

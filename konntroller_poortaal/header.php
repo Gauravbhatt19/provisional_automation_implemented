@@ -15,6 +15,9 @@
         <a class="nav-link" href="./subbank.php">Subject Bank</a>
       </li>
             <li class="nav-item">
+        <a class="nav-link" href="./chckprov.php">Check Provisional</a>
+      </li>           
+       <li class="nav-item">
         <a class="nav-link" href="./reftb.php">Reference Table</a>
       </li>
             <li class="nav-item">

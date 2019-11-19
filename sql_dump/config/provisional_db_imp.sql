@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2019 at 06:44 AM
+-- Generation Time: Nov 19, 2019 at 07:21 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -119,6 +119,7 @@ CREATE TABLE `subjects` (
 --
 
 INSERT INTO `subjects` (`subcode`, `name`, `branch`, `sem`, `batch`, `id`, `credit1`, `credit2`) VALUES
+('1', 'MAth 2', 'CE', 2, 17, 78, 100, 50),
 ('GP', 'General Proficiency', 'CSE', 2, 17, 20, 50, 50),
 ('PCS101', 'Fundamentals of Programming Lab', 'CSE', 1, 17, 8, 25, 25),
 ('PCS302', 'Computer Based Numerical & Statistical Techniques Lab', 'CSE', 3, 17, 27, 25, 25),
@@ -216,8 +217,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`type`, `userid`, `pass`, `last_login`, `last_logout`, `no_of_systems`) VALUES
-('admin', 'admin', '$2y$10$Q.eN41TEop0/1jw.Y6018eYpIMTtsLenVL4nxADQYHPCl./WPqCQS', '2019-11-18 10:56:21', '2019-11-18 04:55:08', 2),
-('compiler', 'Compiler1', '$2y$10$F4XayJA4TelYCJGMglLF3ud1UqMid4azd.h7Fqc6yfC8AcMg6kuyC', '2019-11-18 10:57:57', '2019-11-18 04:06:31', 8);
+('admin', 'admin', '$2y$10$Q.eN41TEop0/1jw.Y6018eYpIMTtsLenVL4nxADQYHPCl./WPqCQS', '2019-11-19 00:39:47', '2019-11-18 23:16:00', 4),
+('compiler', 'Compiler1', '$2y$10$xNrzMqBaGuTq5Pti72XSQuv940NlTSU7jqi4JIkxOQgC5HmXW0oSK', '2019-11-19 11:42:25', '2019-11-18 22:47:30', 11);
 
 --
 -- Indexes for dumped tables
@@ -275,13 +276,13 @@ ALTER TABLE `general`
 -- AUTO_INCREMENT for table `refer_table`
 --
 ALTER TABLE `refer_table`
-  MODIFY `ref_no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `ref_no` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `subjects`
 --
 ALTER TABLE `subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- Constraints for dumped tables

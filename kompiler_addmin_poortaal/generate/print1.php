@@ -80,6 +80,25 @@ $obtsem=$resultset2['credit1'];
 $obtses=$resultset2['credit2'];
 $mnth_yr=$resultset2['mnth_yr'];
 $exam_type=$resultset2['back_type'];
+        if($mmsem>'50'){
+          $ext1=0.3*$mmsem;
+        $ttl=0.4*($mmsem+$mmses);
+        }
+        elseif($mmsem=='50'){
+        $ext1=0.4*$mmsem;
+        $ttl=0.4*($mmsem+$mmses);          
+        }
+        else{
+        $ext1=0.5*$mmsem;
+        $ttl=0.5*($mmsem+$mmses);          
+        }
+        if((($obtsem+$obtses)>=$ttl) and $obtsem>=$ext1){  
+        $rslt='PASS';
+        }
+        else
+        {
+        $rslt='BACK';
+        }
 $html.='<tr><td>'.$i.'</td>
     <td>'.$sub.'</td>
     <td>'.$mmsem.'</td>
@@ -88,7 +107,7 @@ $html.='<tr><td>'.$i.'</td>
     <td>'.$obtsem.'</td>
     <td>'.$obtses.'</td>
     <td>'.($obtsem+$obtses).'</td>
-    <td>'.$result.'</td></tr>';
+    <td>'.$rslt.'</td></tr>';
 $i++;
 }
    $html.="</tbody>

@@ -1,15 +1,12 @@
 <?php
 session_start();
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-require 'vendor/autoload.php';
 require_once '../../extra_resources/dompdf/autoload.inc.php';
 use Dompdf\Dompdf;
   error_reporting(0);
 $conn=mysqli_connect('localhost','root','','provisional_db');
     date_default_timezone_set("Asia/Kolkata");
     $dt=date("Y-m-d H:i:s");
+    $dompdf = new Dompdf();
 if(!isset($_SESSION['login_id']))
 {
  header("location: ../index.php");
@@ -31,25 +28,7 @@ $id=$_SESSION['ref_id'];
     $resultset1=mysqli_fetch_assoc($results1);
     $rollno=$resultset1['roll_no'];
     $branch=$resultset1['branch'];
-$mail = new PHPMailer(true);
-try {
-     $mail->SMTPDebug =false;      
-    $mail->isSMTP();   
-    $mail->Host       = 'smtp.gmail.com'; 
-    $mail->SMTPAuth   = true;    
-    $mail->Username   = 'provisional.thdcihet@gmail.com';
-    $mail->Password   = 'Provisional@1234';              
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;  
-    $mail->Port       = 587;                             
-    $mail->setFrom('provisional.thdcihet@gmail.com', 'Provisional Portal');
-    $mail->addAddress($email_id,$name);   
-    $mail->addReplyTo('provisional.thdcihet@gmail.com', 'Provisional Portal');
    $dompdf = new Dompdf();
-    $mail->isHTML(true);           
-    $mail->Subject = 'Provisional Marksheet THDC IHET | '.$name;
-    $mail->Body    = 'PFA to the Provisional Marksheet.<br> <b>Note: </b> This mark sheet is valid only after Signature from Dy. Controller of Examination. ';
-    $mail->AltBody = 'PFA to the Provisional Marksheet.Note: This mark sheet is valid only after Signature from Dy. Controller of Examination. ';
-
 $html="<style>@page {
   margin:1cm;
 }</style><div style=' margin:-8px; border-bottom:2px solid #000; text-align:center;line-height:0.5rem;'>
@@ -102,6 +81,26 @@ $obtsem=$resultset2['credit1'];
 $obtses=$resultset2['credit2'];
 $mnth_yr=$resultset2['mnth_yr'];
 $exam_type=$resultset2['back_type'];
+
+        if($mmsem>'50'){
+          $ext1=0.3*$mmsem;
+        $ttl=0.4*($mmsem+$mmses);
+        }
+        elseif($mmsem=='50'){
+        $ext1=0.4*$mmsem;
+        $ttl=0.4*($mmsem+$mmses);          
+        }
+        else{
+        $ext1=0.5*$mmsem;
+        $ttl=0.5*($mmsem+$mmses);          
+        }
+        if((($obtsem+$obtses)>=$ttl) and $obtsem>=$ext1){  
+        $rslt='PASS';
+        }
+        else
+        {
+        $rslt='BACK';
+        }
 $html.='<tr><td>'.$i.'</td>
     <td>'.$sub.'</td>
     <td>'.$mmsem.'</td>
@@ -110,7 +109,7 @@ $html.='<tr><td>'.$i.'</td>
     <td>'.$obtsem.'</td>
     <td>'.$obtses.'</td>
     <td>'.($obtsem+$obtses).'</td>
-    <td>'.$result.'</td>
+    <td>'.$rslt.'</td>
     <td>'.$mnth_yr.'</td>
     <td>'.$exam_type.' BACK</td></tr>';
 $i++;
@@ -129,14 +128,6 @@ $filename=$id.'_'.$rollno;
  $output = $dompdf->output($filename);
 $full_path='./temp/'.$filename.'.pdf';
 file_put_contents($full_path, $output);
-
-
-
-    // $mail->addCC('gb.16cs20@thdcihet.ac.in');
-
-    $mail->addAttachment($full_path);         // Add attachments
-    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-    $mail->send();
     $qry1="DELETE FROM buffer2_subjects WHERE ref_no='{$id}'";
     $result1=mysqli_query($conn,$qry1);
     $reason='Your Provisional Marksheet has been generated and sent to your email.';
@@ -145,12 +136,8 @@ file_put_contents($full_path, $output);
     $reject='Success';
     $qry3="UPDATE refer_table SET stat='{$reject}',compile_time='{$dt}' WHERE ref_no='{$id}'";
     $result3=mysqli_query($conn,$qry3);
-    unlink($full_path);
-    header("location: ../index.php");
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-
+    $url="location: ./mails.php?ref=".$id;
+    header($url);
 }
 else {
   header("location: ../index.php");
