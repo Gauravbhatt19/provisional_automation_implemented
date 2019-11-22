@@ -40,6 +40,9 @@ function fetch_subjects($conn,$branch,$year,$sem){
 		echo "</tr>";
 		$i++;
 	}
+	if($i==1){
+			echo "<td id='S1'>1</td><td><input type='text' placeholder='e.g. TCS401 Discrete Mathematics' class='form-control' name='subcode1' required/></td><td>	<select class='form-control'  name='credit11'><option value='100'>100</option><option value='50'>50</option><option value='25'>25</option></select></td><td>	<select class='form-control' name='credit21'><option value='50'>50</option><option value='25'>25</option></select></td><td><a href='javascript:void(0)' onclick='del(this.id)' id='1' style='display:none;'>Delete</a></td>";
+	}
 }
 ?>
 <html>

@@ -5,12 +5,12 @@ CREATE TABLE buffer2_subjects( ref_no INT(10) NOT NULL ,FOREIGN KEY(ref_no) REFE
 
 #Subject Table
 CREATE TABLE subjects (
-  subcode varchar(7) NOT NULL PRIMARY KEY,
+  subcode varchar(7) NOT NULL,
   name varchar(300) NOT NULL,
   branch enum('CSE','CE','ECE','EE','ME') DEFAULT NULL,
   sem int(11) DEFAULT '1',
   batch int(11) DEFAULT '17',
-  id int(11) NOT NULL UNIQUE AUTO_INCREMENT,
+  id int(11) NOT NULL  PRIMARY KEY AUTO_INCREMENT,
   credit1 int(5) NOT NULL DEFAULT '100',
   credit2 int(5) NOT NULL DEFAULT '50'
 );
