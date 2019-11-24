@@ -4,7 +4,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 require 'vendor/autoload.php';
-// error_reporting(0);
+error_reporting(0);
 $conn=mysqli_connect('localhost','root','','provisional_db');
     date_default_timezone_set("Asia/Kolkata");
     $dt=date("Y-m-d H:i:s");
@@ -29,7 +29,7 @@ $filename=$id.'_'.$rollno;
 try {
  $mail->SMTPDebug =0;      
     $mail->isSMTP();   
-    $mail->Host = 'smtp.gmail.com';
+    // $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth   = true;    
     $mail->Username   = 'provisional.thdcihet@gmail.com';
     $mail->Password   = 'Aa1357908642';              

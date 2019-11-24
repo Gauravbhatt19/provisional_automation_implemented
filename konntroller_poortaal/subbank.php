@@ -59,15 +59,24 @@ include './sidebar.php';
       <option value="6">Sixth Semester</option>
       <option value="7">Seventh Semester</option>
       <option value="8">Eighth emester</option>
-  </select> <br>
+  </select> 
+      <label for="branch" class="mb-0 pt-3">Branch</label>  
+  <select name="branch" id='branch' class="form-control" >
+      <option value="CSE">Computer Science & Engineering</option>
+      <option value="CE">Civil Engineering</option>
+      <option value="ECE">Electronics & Communication Engineering</option>
+      <option value="EE">Electrical Engineering</option>
+      <option value="ME">Mechanical Engineering</option>
+     </select> <br>
      <input type="submit"  value="Search" class="btn btn-primary mb-3"><a href="./addsub.php" class="btn btn-primary mb-3 ml-4">Add Subject</a>
     </form>
 
-   <div <?php if(isset($_POST['year']) and isset($_POST['sem'])) {
+   <div <?php if(isset($_POST['year']) and isset($_POST['sem']) and isset($_POST['branch'])) {
   	echo "style='display:block;'"; 
   	$year=$_POST['year'];
     $sem=$_POST['sem'];
-    $qry="SELECT * FROM subjects WHERE batch ='{$year}' and sem='{$sem}' ORDER BY id";
+    $branch=$_POST['branch'];
+    $qry="SELECT * FROM subjects WHERE batch ='{$year}' and sem='{$sem}' and branch='{$branch}' ORDER BY id";
   	$result=mysqli_query($conn,$qry);
  }
     else {
